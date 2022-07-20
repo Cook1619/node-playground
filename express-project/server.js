@@ -11,12 +11,12 @@ app.set("views", path.join(__dirname, "views"));
 
 const PORT = 3000;
 
-// app.use((req, res, next) => {
-//   const start = Date.now();
-//   next();
-//   const delta = Date.now() - start;
-//   console.log(`${req.method} ${req.baseUrl}${req.url} ${delta}ms`);
-// });
+app.use((req, res, next) => {
+  const start = Date.now();
+  next();
+  const delta = Date.now() - start;
+  console.log(`${req.method} ${req.baseUrl}${req.url} ${delta}ms`);
+});
 
 // app.use("/site", express.static(path.join(__dirname, "public")));
 // app.use(express.json());
