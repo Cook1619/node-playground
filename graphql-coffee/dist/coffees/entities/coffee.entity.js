@@ -11,13 +11,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Coffee = void 0;
 const eager_import_0 = require("./flavor.entity");
+const eager_import_1 = require("../../common/enums/coffee-type.enum");
+const coffee_type_enum_1 = require("./../../common/enums/coffee-type.enum");
 const graphql_1 = require("@nestjs/graphql");
 const flavor_entity_1 = require("./flavor.entity");
 const typeorm_1 = require("typeorm");
 const drink_interface_1 = require("../../common/interfaces/drink.interface");
 let Coffee = class Coffee {
     static _GRAPHQL_METADATA_FACTORY() {
-        return { id: { type: () => Number }, name: { type: () => String }, brand: { type: () => String }, flavors: { nullable: true, type: () => [require("./flavor.entity").Flavor] }, createdAt: { nullable: true, type: () => Date } };
+        return { id: { type: () => Number }, name: { type: () => String }, brand: { type: () => String }, flavors: { nullable: true, type: () => [require("./flavor.entity").Flavor] }, createdAt: { nullable: true, type: () => Date }, type: { type: () => require("../../common/enums/coffee-type.enum").CoffeeType } };
     }
 };
 __decorate([
@@ -44,6 +46,10 @@ __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
 ], Coffee.prototype, "createdAt", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], Coffee.prototype, "type", void 0);
 Coffee = __decorate([
     (0, typeorm_1.Entity)(),
     (0, graphql_1.ObjectType)({ description: 'Coffee Model', implements: () => drink_interface_1.Drink })

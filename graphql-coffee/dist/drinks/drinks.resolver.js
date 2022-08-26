@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DrinksResolver = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const coffee_entity_1 = require("../coffees/entities/coffee.entity");
-const drink_interface_1 = require("../common/interfaces/drink.interface");
+const drinks_result_union_1 = require("../common/unions/drinks-result.union");
 const tea_entity_1 = require("../teas/entities/tea.entity");
 let DrinksResolver = class DrinksResolver {
     async findAll() {
@@ -26,7 +26,7 @@ let DrinksResolver = class DrinksResolver {
     }
 };
 __decorate([
-    (0, graphql_1.Query)(() => [drink_interface_1.Drink], { name: 'drinks' }),
+    (0, graphql_1.Query)(() => [drinks_result_union_1.DrinksResultUnion], { name: 'drinks' }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)

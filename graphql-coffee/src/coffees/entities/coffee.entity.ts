@@ -1,3 +1,4 @@
+import { CoffeeType } from './../../common/enums/coffee-type.enum';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Flavor } from './flavor.entity';
 import {
@@ -30,4 +31,7 @@ export class Coffee implements Drink {
 
   @CreateDateColumn()
   createdAt?: Date;
+
+  @Column({ nullable: true })
+  type: CoffeeType;
 }

@@ -1,4 +1,4 @@
-import { Drink } from 'src/common/interfaces/drink.interface';
+import { DrinksResultUnion } from 'src/common/unions/drinks-result.union';
 export declare class DrinksResolver {
-    findAll(): Promise<Drink[]>;
+    findAll(): Promise<typeof DrinksResultUnion[]>;
 }
