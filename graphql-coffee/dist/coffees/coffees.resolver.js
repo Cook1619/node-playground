@@ -39,14 +39,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CoffeesResolver.prototype, "findAll", null);
 __decorate([
-    (0, graphql_1.Query)(() => coffee_entity_1.Coffee, { name: 'coffee', nullable: true }),
+    (0, graphql_1.Query)(() => coffee_entity_1.Coffee, { name: 'coffee' }),
     __param(0, (0, graphql_1.Args)('id', { type: () => graphql_1.ID }, common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], CoffeesResolver.prototype, "findOne", null);
 __decorate([
-    (0, graphql_1.Mutation)(() => coffee_entity_1.Coffee, { name: 'createCoffee', nullable: true }),
+    (0, graphql_1.Mutation)(() => coffee_entity_1.Coffee, { name: 'createCoffee' }),
     __param(0, (0, graphql_1.Args)('createCoffeeInput')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_coffee_input_1.CreateCoffeeInput]),

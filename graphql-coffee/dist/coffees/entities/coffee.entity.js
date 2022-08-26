@@ -11,16 +11,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Coffee = void 0;
 const graphql_1 = require("@nestjs/graphql");
+const typeorm_1 = require("typeorm");
 let Coffee = class Coffee {
     static _GRAPHQL_METADATA_FACTORY() {
         return { id: { type: () => Number }, name: { type: () => String }, brand: { type: () => String }, flavors: { type: () => [String] } };
     }
 };
 __decorate([
+    (0, typeorm_1.PrimaryGeneratedColumn)(),
     (0, graphql_1.Field)(() => graphql_1.ID, { description: 'A unique identifier' }),
     __metadata("design:type", Number)
 ], Coffee.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Coffee.prototype, "name", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Coffee.prototype, "brand", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'json' }),
+    __metadata("design:type", Array)
+], Coffee.prototype, "flavors", void 0);
 Coffee = __decorate([
+    (0, typeorm_1.Entity)(),
     (0, graphql_1.ObjectType)({ description: 'Coffee Model' })
 ], Coffee);
 exports.Coffee = Coffee;

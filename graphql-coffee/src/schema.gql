@@ -13,11 +13,11 @@ type Coffee {
 
 type Query {
   coffees: [Coffee!]!
-  coffee(id: ID!): Coffee
+  coffee(id: ID!): Coffee!
 }
 
 type Mutation {
-  createCoffee(createCoffeeInput: CreateCoffeeInput!): Coffee
+  createCoffee(createCoffeeInput: CreateCoffeeInput!): Coffee!
 }
 
 input CreateCoffeeInput {
