@@ -1,0 +1,1 @@
+{"version":3,"file":"pub-sub.module.js","sourceRoot":"","sources":["../../src/pub-sub/pub-sub.module.ts"],"names":[],"mappings":";;;;;;;;;AAAA,2CAAwC;AACxC,iEAA+C;AAM/C,IAAa,YAAY,GAAzB,MAAa,YAAY;CAAG,CAAA;AAAf,YAAY;IAJxB,IAAA,eAAM,EAAC;QACN,SAAS,EAAE,CAAC,8BAAM,CAAC;QACnB,OAAO,EAAE,CAAC,8BAAM,CAAC;KAClB,CAAC;GACW,YAAY,CAAG;AAAf,oCAAY"}

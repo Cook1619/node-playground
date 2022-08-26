@@ -1,3 +1,4 @@
+import { PubSub } from 'graphql-subscriptions';
 import { Repository } from 'typeorm';
 import { CreateCoffeeInput } from './dto/create-coffee.input';
 import { UpdateCoffeeInput } from './dto/update-coffee.input';
@@ -6,7 +7,8 @@ import { Flavor } from './entities/flavor.entity';
 export declare class CoffeesService {
     private readonly coffeesRepository;
     private readonly flavorsRepository;
-    constructor(coffeesRepository: Repository<Coffee>, flavorsRepository: Repository<Flavor>);
+    private readonly pubSub;
+    constructor(coffeesRepository: Repository<Coffee>, flavorsRepository: Repository<Flavor>, pubSub: PubSub);
     findAll(): Promise<Coffee[]>;
     findOne(id: number): Promise<Coffee>;
     create(createCoffeeInput: CreateCoffeeInput): Promise<Coffee>;

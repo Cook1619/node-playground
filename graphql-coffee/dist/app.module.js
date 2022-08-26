@@ -18,6 +18,7 @@ const app_service_1 = require("./app.service");
 const coffees_module_1 = require("./coffees/coffees.module");
 const tea_entity_1 = require("./teas/entities/tea.entity");
 const drinks_resolver_1 = require("./drinks/drinks.resolver");
+const pub_sub_module_1 = require("./pub-sub/pub-sub.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -39,8 +40,10 @@ AppModule = __decorate([
                 buildSchemaOptions: {
                     orphanedTypes: [tea_entity_1.Tea],
                 },
+                installSubscriptionHandlers: true,
             }),
             coffees_module_1.CoffeesModule,
+            pub_sub_module_1.PubSubModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService, date_scalar_1.DateScalar, drinks_resolver_1.DrinksResolver],

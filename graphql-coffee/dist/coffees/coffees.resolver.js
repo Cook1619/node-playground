@@ -15,13 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CoffeesResolver = void 0;
 const common_1 = require("@nestjs/common");
 const graphql_1 = require("@nestjs/graphql");
+const graphql_subscriptions_1 = require("graphql-subscriptions");
 const coffees_service_1 = require("./coffees.service");
 const create_coffee_input_1 = require("./dto/create-coffee.input");
 const update_coffee_input_1 = require("./dto/update-coffee.input");
 const coffee_entity_1 = require("./entities/coffee.entity");
 let CoffeesResolver = class CoffeesResolver {
-    constructor(coffeesService) {
+    constructor(coffeesService, pubSub) {
         this.coffeesService = coffeesService;
+        this.pubSub = pubSub;
     }
     async findAll() {
         return this.coffeesService.findAll();
@@ -37,6 +39,9 @@ let CoffeesResolver = class CoffeesResolver {
     }
     async remove(id) {
         return this.coffeesService.remove(id);
+    }
+    coffeeAdded() {
+        return this.pubSub.asyncIterator('coffeeAdded');
     }
 };
 __decorate([
@@ -74,9 +79,16 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], CoffeesResolver.prototype, "remove", null);
+__decorate([
+    (0, graphql_1.Subscription)(() => coffee_entity_1.Coffee),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], CoffeesResolver.prototype, "coffeeAdded", null);
 CoffeesResolver = __decorate([
     (0, graphql_1.Resolver)(),
-    __metadata("design:paramtypes", [coffees_service_1.CoffeesService])
+    __metadata("design:paramtypes", [coffees_service_1.CoffeesService,
+        graphql_subscriptions_1.PubSub])
 ], CoffeesResolver);
 exports.CoffeesResolver = CoffeesResolver;
 //# sourceMappingURL=coffees.resolver.js.map

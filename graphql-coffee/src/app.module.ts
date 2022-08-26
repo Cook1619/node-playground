@@ -9,6 +9,7 @@ import { AppService } from './app.service';
 import { CoffeesModule } from './coffees/coffees.module';
 import { Tea } from './teas/entities/tea.entity';
 import { DrinksResolver } from './drinks/drinks.resolver';
+import { PubSubModule } from './pub-sub/pub-sub.module';
 
 @Module({
   imports: [
@@ -28,8 +29,10 @@ import { DrinksResolver } from './drinks/drinks.resolver';
       buildSchemaOptions: {
         orphanedTypes: [Tea], // 👈
       },
+      installSubscriptionHandlers: true,
     }),
     CoffeesModule,
+    PubSubModule,
   ],
   controllers: [AppController],
   providers: [AppService, DateScalar, DrinksResolver],

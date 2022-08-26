@@ -16,13 +16,15 @@ exports.CoffeesService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const apollo_server_express_1 = require("apollo-server-express");
+const graphql_subscriptions_1 = require("graphql-subscriptions");
 const typeorm_2 = require("typeorm");
 const coffee_entity_1 = require("./entities/coffee.entity");
 const flavor_entity_1 = require("./entities/flavor.entity");
 let CoffeesService = class CoffeesService {
-    constructor(coffeesRepository, flavorsRepository) {
+    constructor(coffeesRepository, flavorsRepository, pubSub) {
         this.coffeesRepository = coffeesRepository;
         this.flavorsRepository = flavorsRepository;
+        this.pubSub = pubSub;
     }
     async findAll() {
         return this.coffeesRepository.find();
@@ -37,7 +39,9 @@ let CoffeesService = class CoffeesService {
     async create(createCoffeeInput) {
         const flavors = await Promise.all(createCoffeeInput.flavors.map((name) => this.preloadFlavorByName(name)));
         const coffee = this.coffeesRepository.create(Object.assign(Object.assign({}, createCoffeeInput), { flavors }));
-        return this.coffeesRepository.save(coffee);
+        const newCoffeeEntity = await this.coffeesRepository.save(coffee);
+        this.pubSub.publish('coffeeAdded', { coffeeAdded: newCoffeeEntity });
+        return newCoffeeEntity;
     }
     async update(id, updateCoffeeInput) {
         const flavors = updateCoffeeInput.flavors &&
@@ -67,7 +71,8 @@ CoffeesService = __decorate([
     __param(0, (0, typeorm_1.InjectRepository)(coffee_entity_1.Coffee)),
     __param(1, (0, typeorm_1.InjectRepository)(flavor_entity_1.Flavor)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
-        typeorm_2.Repository])
+        typeorm_2.Repository,
+        graphql_subscriptions_1.PubSub])
 ], CoffeesService);
 exports.CoffeesService = CoffeesService;
 //# sourceMappingURL=coffees.service.js.map
