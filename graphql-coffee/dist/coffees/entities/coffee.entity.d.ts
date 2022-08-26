@@ -4,4 +4,5 @@ export declare class Coffee {
     name: string;
     brand: string;
     flavors?: Flavor[];
+    createdAt?: Date;
 }

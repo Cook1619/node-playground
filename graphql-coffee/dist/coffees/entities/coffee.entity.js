@@ -16,7 +16,7 @@ const flavor_entity_1 = require("./flavor.entity");
 const typeorm_1 = require("typeorm");
 let Coffee = class Coffee {
     static _GRAPHQL_METADATA_FACTORY() {
-        return { id: { type: () => Number }, name: { type: () => String }, brand: { type: () => String }, flavors: { nullable: true, type: () => [require("./flavor.entity").Flavor] } };
+        return { id: { type: () => Number }, name: { type: () => String }, brand: { type: () => String }, flavors: { nullable: true, type: () => [require("./flavor.entity").Flavor] }, createdAt: { nullable: true, type: () => Date } };
     }
 };
 __decorate([
@@ -39,6 +39,10 @@ __decorate([
     }),
     __metadata("design:type", Array)
 ], Coffee.prototype, "flavors", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)(),
+    __metadata("design:type", Date)
+], Coffee.prototype, "createdAt", void 0);
 Coffee = __decorate([
     (0, typeorm_1.Entity)(),
     (0, graphql_1.ObjectType)({ description: 'Coffee Model' })

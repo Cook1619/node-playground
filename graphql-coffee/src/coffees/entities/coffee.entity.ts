@@ -2,6 +2,7 @@ import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Flavor } from './flavor.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinTable,
   ManyToMany,
@@ -25,4 +26,7 @@ export class Coffee {
     cascade: true,
   })
   flavors?: Flavor[];
+
+  @CreateDateColumn()
+  createdAt?: Date;
 }
