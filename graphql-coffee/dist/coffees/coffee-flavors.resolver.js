@@ -13,22 +13,16 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CoffeeFlavorsResolver = void 0;
-const graphql_1 = require("@nestjs/graphql");
-const typeorm_1 = require("@nestjs/typeorm");
-const typeorm_2 = require("typeorm");
-const coffee_entity_1 = require("./entities/coffee.entity");
 const flavor_entity_1 = require("./entities/flavor.entity");
+const graphql_1 = require("@nestjs/graphql");
+const flavors_by_coffee_loader_1 = require("./data-loader/flavors-by-coffee.loader");
+const coffee_entity_1 = require("./entities/coffee.entity");
 let CoffeeFlavorsResolver = class CoffeeFlavorsResolver {
-    constructor(flavorsRepository) {
-        this.flavorsRepository = flavorsRepository;
+    constructor(flavorsByCoffeeLoader) {
+        this.flavorsByCoffeeLoader = flavorsByCoffeeLoader;
     }
     async getFlavorsOfCoffee(coffee) {
-        return this.flavorsRepository
-            .createQueryBuilder('flavor')
-            .innerJoin('flavor.coffees', 'coffees', 'coffees.id = :coffeeId', {
-            coffeeId: coffee.id,
-        })
-            .getMany();
+        return this.flavorsByCoffeeLoader.load(coffee.id);
     }
 };
 __decorate([
@@ -40,8 +34,7 @@ __decorate([
 ], CoffeeFlavorsResolver.prototype, "getFlavorsOfCoffee", null);
 CoffeeFlavorsResolver = __decorate([
     (0, graphql_1.Resolver)(() => coffee_entity_1.Coffee),
-    __param(0, (0, typeorm_1.InjectRepository)(flavor_entity_1.Flavor)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [flavors_by_coffee_loader_1.FlavorsByCoffeeLoader])
 ], CoffeeFlavorsResolver);
 exports.CoffeeFlavorsResolver = CoffeeFlavorsResolver;
 //# sourceMappingURL=coffee-flavors.resolver.js.map

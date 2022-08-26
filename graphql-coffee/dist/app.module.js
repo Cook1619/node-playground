@@ -33,6 +33,7 @@ AppModule = __decorate([
                 database: 'postgres',
                 autoLoadEntities: true,
                 synchronize: true,
+                logging: ['query'],
             }),
             graphql_1.GraphQLModule.forRoot({
                 driver: apollo_1.ApolloDriver,
