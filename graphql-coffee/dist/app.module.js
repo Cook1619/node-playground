@@ -16,6 +16,8 @@ const path_1 = require("path");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const coffees_module_1 = require("./coffees/coffees.module");
+const tea_entity_1 = require("./teas/entities/tea.entity");
+const drinks_resolver_1 = require("./drinks/drinks.resolver");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -34,11 +36,14 @@ AppModule = __decorate([
             graphql_1.GraphQLModule.forRoot({
                 driver: apollo_1.ApolloDriver,
                 autoSchemaFile: (0, path_1.join)(process.cwd(), 'src/schema.gql'),
+                buildSchemaOptions: {
+                    orphanedTypes: [tea_entity_1.Tea],
+                },
             }),
             coffees_module_1.CoffeesModule,
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService, date_scalar_1.DateScalar],
+        providers: [app_service_1.AppService, date_scalar_1.DateScalar, drinks_resolver_1.DrinksResolver],
     })
 ], AppModule);
 exports.AppModule = AppModule;

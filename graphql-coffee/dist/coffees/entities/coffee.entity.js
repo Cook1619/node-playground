@@ -14,6 +14,7 @@ const eager_import_0 = require("./flavor.entity");
 const graphql_1 = require("@nestjs/graphql");
 const flavor_entity_1 = require("./flavor.entity");
 const typeorm_1 = require("typeorm");
+const drink_interface_1 = require("../../common/interfaces/drink.interface");
 let Coffee = class Coffee {
     static _GRAPHQL_METADATA_FACTORY() {
         return { id: { type: () => Number }, name: { type: () => String }, brand: { type: () => String }, flavors: { nullable: true, type: () => [require("./flavor.entity").Flavor] }, createdAt: { nullable: true, type: () => Date } };
@@ -45,7 +46,7 @@ __decorate([
 ], Coffee.prototype, "createdAt", void 0);
 Coffee = __decorate([
     (0, typeorm_1.Entity)(),
-    (0, graphql_1.ObjectType)({ description: 'Coffee Model' })
+    (0, graphql_1.ObjectType)({ description: 'Coffee Model', implements: () => drink_interface_1.Drink })
 ], Coffee);
 exports.Coffee = Coffee;
 //# sourceMappingURL=coffee.entity.js.map
