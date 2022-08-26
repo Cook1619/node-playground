@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Coffee = void 0;
 const eager_import_0 = require("./flavor.entity");
 const eager_import_1 = require("../../common/enums/coffee-type.enum");
+const logger_middleware_1 = require("./../../common/middleware/logger.middleware");
 const coffee_type_enum_1 = require("./../../common/enums/coffee-type.enum");
 const graphql_1 = require("@nestjs/graphql");
 const flavor_entity_1 = require("./flavor.entity");
@@ -28,6 +29,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Coffee.prototype, "id", void 0);
 __decorate([
+    (0, graphql_1.Field)({ middleware: [logger_middleware_1.loggerMiddleware] }),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Coffee.prototype, "name", void 0);

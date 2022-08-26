@@ -1,3 +1,4 @@
+import { loggerMiddleware } from './../../common/middleware/logger.middleware';
 import { CoffeeType } from './../../common/enums/coffee-type.enum';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Flavor } from './flavor.entity';
@@ -17,6 +18,7 @@ export class Coffee implements Drink {
   @Field(() => ID, { description: 'A unique identifier' })
   id: number;
 
+  @Field({ middleware: [loggerMiddleware] })
   @Column()
   name: string;
 
