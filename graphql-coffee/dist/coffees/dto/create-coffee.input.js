@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateCoffeeInput = void 0;
+const eager_import_0 = require("../entities/flavor.entity");
 const graphql_1 = require("@nestjs/graphql");
 const class_validator_1 = require("class-validator");
 let CreateCoffeeInput = class CreateCoffeeInput {

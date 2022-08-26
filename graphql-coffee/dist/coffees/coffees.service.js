@@ -18,9 +18,11 @@ const typeorm_1 = require("@nestjs/typeorm");
 const apollo_server_express_1 = require("apollo-server-express");
 const typeorm_2 = require("typeorm");
 const coffee_entity_1 = require("./entities/coffee.entity");
+const flavor_entity_1 = require("./entities/flavor.entity");
 let CoffeesService = class CoffeesService {
-    constructor(coffeesRepository) {
+    constructor(coffeesRepository, flavorsRepository) {
         this.coffeesRepository = coffeesRepository;
+        this.flavorsRepository = flavorsRepository;
     }
     async findAll() {
         return this.coffeesRepository.find();
@@ -33,11 +35,14 @@ let CoffeesService = class CoffeesService {
         return coffee;
     }
     async create(createCoffeeInput) {
-        const coffee = this.coffeesRepository.create(createCoffeeInput);
+        const flavors = await Promise.all(createCoffeeInput.flavors.map((name) => this.preloadFlavorByName(name)));
+        const coffee = this.coffeesRepository.create(Object.assign(Object.assign({}, createCoffeeInput), { flavors }));
         return this.coffeesRepository.save(coffee);
     }
     async update(id, updateCoffeeInput) {
-        const coffee = await this.coffeesRepository.preload(Object.assign({ id }, updateCoffeeInput));
+        const flavors = updateCoffeeInput.flavors &&
+            (await Promise.all(updateCoffeeInput.flavors.map((name) => this.preloadFlavorByName(name))));
+        const coffee = await this.coffeesRepository.preload(Object.assign(Object.assign({ id }, updateCoffeeInput), { flavors }));
         if (!coffee) {
             throw new apollo_server_express_1.UserInputError(`Coffee #${id} does not exist`);
         }
@@ -47,11 +52,22 @@ let CoffeesService = class CoffeesService {
         const coffee = await this.findOne(id);
         return this.coffeesRepository.remove(coffee);
     }
+    async preloadFlavorByName(name) {
+        const existingFlavor = await this.flavorsRepository.findOne({
+            where: { name },
+        });
+        if (existingFlavor) {
+            return existingFlavor;
+        }
+        return this.flavorsRepository.create({ name });
+    }
 };
 CoffeesService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(coffee_entity_1.Coffee)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __param(1, (0, typeorm_1.InjectRepository)(flavor_entity_1.Flavor)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository])
 ], CoffeesService);
 exports.CoffeesService = CoffeesService;
 //# sourceMappingURL=coffees.service.js.map

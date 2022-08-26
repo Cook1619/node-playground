@@ -9,39 +9,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Coffee = void 0;
-const eager_import_0 = require("./flavor.entity");
+exports.Flavor = void 0;
+const eager_import_0 = require("./coffee.entity");
 const graphql_1 = require("@nestjs/graphql");
-const flavor_entity_1 = require("./flavor.entity");
 const typeorm_1 = require("typeorm");
-let Coffee = class Coffee {
+const coffee_entity_1 = require("./coffee.entity");
+let Flavor = class Flavor {
     static _GRAPHQL_METADATA_FACTORY() {
-        return { id: { type: () => Number }, name: { type: () => String }, brand: { type: () => String }, flavors: { nullable: true, type: () => [require("./flavor.entity").Flavor] } };
+        return { id: { type: () => Number }, name: { type: () => String }, coffees: { type: () => [require("./coffee.entity").Coffee] } };
     }
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
-    (0, graphql_1.Field)(() => graphql_1.ID, { description: 'A unique identifier' }),
+    (0, graphql_1.Field)(() => graphql_1.ID),
     __metadata("design:type", Number)
-], Coffee.prototype, "id", void 0);
+], Flavor.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Coffee.prototype, "name", void 0);
+], Flavor.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Coffee.prototype, "brand", void 0);
-__decorate([
-    (0, typeorm_1.JoinTable)(),
-    (0, typeorm_1.ManyToMany)(() => flavor_entity_1.Flavor, (flavor) => flavor.coffees, {
-        cascade: true,
-    }),
+    (0, typeorm_1.ManyToMany)(() => coffee_entity_1.Coffee, (coffee) => coffee.flavors),
     __metadata("design:type", Array)
-], Coffee.prototype, "flavors", void 0);
-Coffee = __decorate([
-    (0, typeorm_1.Entity)(),
-    (0, graphql_1.ObjectType)({ description: 'Coffee Model' })
-], Coffee);
-exports.Coffee = Coffee;
-//# sourceMappingURL=coffee.entity.js.map
+], Flavor.prototype, "coffees", void 0);
+Flavor = __decorate([
+    (0, graphql_1.ObjectType)(),
+    (0, typeorm_1.Entity)()
+], Flavor);
+exports.Flavor = Flavor;
+//# sourceMappingURL=flavor.entity.js.map
