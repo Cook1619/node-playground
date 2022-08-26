@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const graphql_1 = require("@nestjs/graphql");
 const coffees_service_1 = require("./coffees.service");
 const create_coffee_input_1 = require("./dto/create-coffee.input");
+const update_coffee_input_1 = require("./dto/update-coffee.input");
 const coffee_entity_1 = require("./entities/coffee.entity");
 let CoffeesResolver = class CoffeesResolver {
     constructor(coffeesService) {
@@ -30,6 +31,12 @@ let CoffeesResolver = class CoffeesResolver {
     }
     async create(createCoffeeInput) {
         return this.coffeesService.create(createCoffeeInput);
+    }
+    async update(id, updateCoffeeInput) {
+        return this.coffeesService.update(id, updateCoffeeInput);
+    }
+    async remove(id) {
+        return this.coffeesService.remove(id);
     }
 };
 __decorate([
@@ -52,6 +59,21 @@ __decorate([
     __metadata("design:paramtypes", [create_coffee_input_1.CreateCoffeeInput]),
     __metadata("design:returntype", Promise)
 ], CoffeesResolver.prototype, "create", null);
+__decorate([
+    (0, graphql_1.Mutation)(() => coffee_entity_1.Coffee, { name: 'updateCoffee' }),
+    __param(0, (0, graphql_1.Args)('id', common_1.ParseIntPipe)),
+    __param(1, (0, graphql_1.Args)('updateCoffeeInput')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, update_coffee_input_1.UpdateCoffeeInput]),
+    __metadata("design:returntype", Promise)
+], CoffeesResolver.prototype, "update", null);
+__decorate([
+    (0, graphql_1.Mutation)(() => coffee_entity_1.Coffee, { name: 'removeCoffee' }),
+    __param(0, (0, graphql_1.Args)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], CoffeesResolver.prototype, "remove", null);
 CoffeesResolver = __decorate([
     (0, graphql_1.Resolver)(),
     __metadata("design:paramtypes", [coffees_service_1.CoffeesService])

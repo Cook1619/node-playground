@@ -36,6 +36,17 @@ let CoffeesService = class CoffeesService {
         const coffee = this.coffeesRepository.create(createCoffeeInput);
         return this.coffeesRepository.save(coffee);
     }
+    async update(id, updateCoffeeInput) {
+        const coffee = await this.coffeesRepository.preload(Object.assign({ id }, updateCoffeeInput));
+        if (!coffee) {
+            throw new apollo_server_express_1.UserInputError(`Coffee #${id} does not exist`);
+        }
+        return this.coffeesRepository.save(coffee);
+    }
+    async remove(id) {
+        const coffee = await this.findOne(id);
+        return this.coffeesRepository.remove(coffee);
+    }
 };
 CoffeesService = __decorate([
     (0, common_1.Injectable)(),
