@@ -7,8 +7,8 @@ POST http://localhost:4000/messages
 content-type: application/json
 
 {
-    "content": "Hi there"
+    "content": "This is another message"
 }
 
 ### List a single message
-GET http://localhost:4000/messages/112
+GET http://localhost:4000/messages/534776c2-515a-4c80-bb6e-d157511710cb
