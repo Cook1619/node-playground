@@ -11,4 +11,4 @@ content-type: application/json
 }
 
 ### List a single message
-GET http://localhost:4000/messages/534776c2-515a-4c80-bb6e-d157511710cb
+GET http://localhost:4000/messages/534776c2-515a-4c80-bb6511710cb
