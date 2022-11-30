@@ -1,9 +1,9 @@
 ### List all messages
-GET http://localhost:3000/messages
+GET http://localhost:4000/messages
 
 
 ### Create a new message
-POST http://localhost:3000/messages
+POST http://localhost:4000/messages
 content-type: application/json
 
 {
@@ -11,4 +11,4 @@ content-type: application/json
 }
 
 ### List a single message
-GET http://localhost:3000/messages/112
+GET http://localhost:4000/messages/112
