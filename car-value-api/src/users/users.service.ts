@@ -14,8 +14,28 @@ export class UsersService {
     create(email: string, password: string) {
         //Does not save, creates a user entity instance with email and password
         //We do this because we can add validation in the entity file as well
+        //Hooks will run doing it this way, calling repo.save({ email, password }) will not call hooks
         const user = this.repo.create({ email, password })
         //Takes the entity data and persist the save
         return this.repo.save(user)
     }
+
+    findOne(id: number){
+        return this.repo.findOneBy({ id })
+    }
+
+    find(email: string){
+        return this.repo.find({where: { email } })
+    }
+
+    async update(id: number, attrs: Partial<User> ){
+        const user = await this.findOne(id);
+        if(!user){
+            throw new Error('User not found')
+        }
+        Object.assign(user, attrs);
+        return this.repo.save(user)
+    }
+
+    remove(id: string){}
 }
