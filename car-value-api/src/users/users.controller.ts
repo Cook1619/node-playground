@@ -10,4 +10,6 @@ export class UsersController {
         return this.usersService.create(body.email, body.password)
     }
 
+    
+
 }
