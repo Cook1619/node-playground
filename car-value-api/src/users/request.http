@@ -6,3 +6,12 @@ content-type: application/json
     "email": "mcook@yahoo.com",
     "password": "123abdasac"
 }
+
+### Find user by ID
+GET http://localhost:3000/auth/1
+
+### Find all user by given email
+GET http://localhost:3000/auth?email=cook@yahoo.com
+
+### Delete a user with a given id
+DELETE http://localhost:3000/auth/1
