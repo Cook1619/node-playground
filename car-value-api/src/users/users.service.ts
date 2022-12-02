@@ -12,8 +12,10 @@ export class UsersService {
     // @InjectRepository tells DI that we need the user repo
     constructor(@InjectRepository(User) private repo: Repository<User>) { }
     create(email: string, password: string) {
+        //Does not save, creates a user entity instance with email and password
+        //We do this because we can add validation in the entity file as well
         const user = this.repo.create({ email, password })
-
+        //Takes the entity data and persist the save
         return this.repo.save(user)
     }
 }
