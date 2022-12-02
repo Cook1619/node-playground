@@ -15,3 +15,11 @@ GET http://localhost:3000/auth?email=cook@yahoo.com
 
 ### Delete a user with a given id
 DELETE http://localhost:3000/auth/1
+
+### Update a user by id
+PATCH http://localhost:3000/auth/2
+content-type: application/json
+
+{
+    "password": "aajjahgagh23433"
+}
