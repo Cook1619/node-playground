@@ -1,5 +1,5 @@
 import { AfterInsert, AfterRemove, AfterUpdate, Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
-
+import { Exclude } from 'class-transformer';
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
@@ -8,7 +8,9 @@ export class User {
     @Column()
     email: string;
 
+    // This is exclude the pass from res along with interceptor in controller
     @Column()
+    @Exclude()
     password: string;
 
     //these are hooks that will run after the corresponding method is ran
