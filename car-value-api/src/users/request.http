@@ -7,6 +7,15 @@ content-type: application/json
     "password": "123abdasac"
 }
 
+### Signing in a user
+POST http://localhost:3000/auth/signin
+content-type: application/json
+
+{
+    "email": "mcookie@yahoo.com",
+    "password": "123abdasac"
+} 
+
 ### Find user by ID
 GET http://localhost:3000/auth/2
 
