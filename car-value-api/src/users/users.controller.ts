@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { UserDto } from './dtos/user.dto';
 import { UsersService } from './users.service';
 import {
@@ -21,10 +22,10 @@ import { Serialize } from 'src/interceptors/serialize.interceptor';
 // If you wanted it on a per route basis aka an admin route that exposes diff data, you would created another DTO to expose to props on a particular route
 @Serialize(UserDto)
 export class UsersController {
-    constructor(private usersService: UsersService) { }
+    constructor(private usersService: UsersService, private authService: AuthService) { }
     @Post('/signup')
     createUser(@Body() body: CreateUserDto) {
-        return this.usersService.create(body.email, body.password);
+        return this.authService.signUp(body.email, body.password);
     }
 
     @Get('/:id')
