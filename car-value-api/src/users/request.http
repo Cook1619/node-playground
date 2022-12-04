@@ -32,3 +32,9 @@ content-type: application/json
 {
     "password": "aajjahgagh23433"
 }
+
+### Get currently sign in user
+GET http://localhost:3000/auth/whoami
+
+### Signing user out
+POST http://localhost:3000/auth/signout
