@@ -11,12 +11,13 @@ import {
     Post,
     Query,
     NotFoundException,
-    Session
+    Session,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { CurrentUser } from './decorators/current-user.decroator';
+import { User } from './users.entity';
 
 @Controller('auth')
 // The serializer can now take in whatever dto shape we need
@@ -32,7 +33,7 @@ export class UsersController {
     // }
 
     @Get('/whoami')
-    whoAmI(@CurrentUser() user: any) {
+    whoAmI(@CurrentUser() user: User) {
         return user
     }
 
