@@ -24,6 +24,17 @@ import { Serialize } from 'src/interceptors/serialize.interceptor';
 @Serialize(UserDto)
 export class UsersController {
     constructor(private usersService: UsersService, private authService: AuthService) { }
+
+    @Get('/whoami')
+    whoAmI(@Session() session: any) {
+        return this.usersService.findOne(session.userId)
+    }
+
+    @Post('/signout')
+    signOut(@Session() session: any) {
+        session.userId = null
+    }
+
     @Post('/signup')
     async createUser(@Body() body: CreateUserDto, @Session() session: any) {
         const user = await this.authService.signUp(body.email, body.password);
