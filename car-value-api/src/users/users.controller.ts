@@ -16,6 +16,7 @@ import {
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
+import { CurrentUser } from './decorators/current-user.decroator';
 
 @Controller('auth')
 // The serializer can now take in whatever dto shape we need
@@ -24,10 +25,15 @@ import { Serialize } from 'src/interceptors/serialize.interceptor';
 @Serialize(UserDto)
 export class UsersController {
     constructor(private usersService: UsersService, private authService: AuthService) { }
+    // ALL OF THESE ROUTES ARE REQUEST HANDLERS
+    // @Get('/whoami')
+    // whoAmI(@Session() session: any) {
+    //     return this.usersService.findOne(session.userId)
+    // }
 
     @Get('/whoami')
-    whoAmI(@Session() session: any) {
-        return this.usersService.findOne(session.userId)
+    whoAmI(@CurrentUser() user: any) {
+        return user
     }
 
     @Post('/signout')
