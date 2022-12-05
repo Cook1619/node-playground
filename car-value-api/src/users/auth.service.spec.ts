@@ -3,6 +3,7 @@ import { AuthService } from './auth.service'
 import { User } from './users.entity';
 import { UsersService } from './users.service';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { v4 as uuid } from 'uuid';
 
 
 describe('AuthService', () => {
@@ -11,13 +12,21 @@ describe('AuthService', () => {
     let fakeUsersService: Partial<UsersService>;
 
     beforeEach(async () => {
+        const users: User[] = []
         // Create fake copy of user service
         // By typing this were ensuring all these methods have the correct type signature
         fakeUsersService = {
             // these methods are async by nature so Promise.resolve is the way we mock the real calls
-            find: () => Promise.resolve([]),
+            find: (email: string) => {
+                const filteredUsers = users.filter((user) => user.email === email)
+                return Promise.resolve(filteredUsers)
+            },
             // the as User makes it so we don't have to define all the hooks in the user.entity file
-            create: (email: string, password: string) => Promise.resolve({ id: 1, email, password } as User)
+            create: (email: string, password: string) => {
+                const user = { id: uuid(), email, password } as User
+                users.push(user)
+                return Promise.resolve(user)
+            }
         }
         const module = await Test.createTestingModule({
             // list of classes we want registered in the DI container
@@ -72,12 +81,8 @@ describe('AuthService', () => {
     });
 
     it('returns a user when passwords match', async () => {
-        fakeUsersService.find = () =>
-            Promise.resolve([
-                { email: 'asdf@asdf.com', password: '5f9c95b4fa003255.258938d7f9def3c72e81c87dfe033856640c6f299f7deb751f7525676996df6c' } as User,
-            ]);
-
-        const user = await service.signIn('laskdjf@alskdfj.com', 'laskdjf')
+        await service.signUp('test@test.com', '123pass')
+        const user = await service.signIn('test@test.com', '123pass')
         expect(user).toBeDefined()
     });
 })
