@@ -1,6 +1,6 @@
-import { AuthService } from './auth.service';
-import { UserDto } from './dtos/user.dto';
-import { UsersService } from './users.service';
+import { AuthService } from '../users/auth.service';
+import { UserDto } from '../users/dtos/user.dto';
+import { UsersService } from '../users/users.service';
 import {
     Body,
     Controller,
@@ -14,12 +14,12 @@ import {
     Session,
     UseGuards,
 } from '@nestjs/common';
-import { CreateUserDto } from './dtos/create-user.dto';
-import { UpdateUserDto } from './dtos/update-user.dto';
-import { Serialize } from 'src/interceptors/serialize.interceptor';
-import { CurrentUser } from './decorators/current-user.decroator';
-import { User } from './users.entity';
-import { AuthGuard } from 'src/guards/auth.guard';
+import { CreateUserDto } from '../users/dtos/create-user.dto';
+import { UpdateUserDto } from '../users/dtos/update-user.dto';
+import { Serialize } from '../interceptors/serialize.interceptor';
+import { CurrentUser } from '../users/decorators/current-user.decroator';
+import { User } from '../users/users.entity';
+import { AuthGuard } from '../guards/auth.guard';
 
 @Controller('auth')
 // The serializer can now take in whatever dto shape we need
@@ -29,10 +29,6 @@ import { AuthGuard } from 'src/guards/auth.guard';
 export class UsersController {
     constructor(private usersService: UsersService, private authService: AuthService) { }
     // ALL OF THESE ROUTES ARE REQUEST HANDLERS
-    // @Get('/whoami')
-    // whoAmI(@Session() session: any) {
-    //     return this.usersService.findOne(session.userId)
-    // }
 
     @Get('/whoami')
     @UseGuards(AuthGuard)
