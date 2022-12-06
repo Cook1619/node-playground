@@ -10,6 +10,6 @@ async function bootstrap() {
   }))
   // Whitelist true strips off any extra fields on an incoming request
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }))
-  await app.listen(3000);
+  await app.listen(6000);
 }
 bootstrap();
