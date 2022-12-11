@@ -44,4 +44,8 @@ describe('Auth System', () => {
                 expect(email).toEqual(email)
             })
     });
+
+    it('test', () => {
+        console.log('test')
+    });
 });
