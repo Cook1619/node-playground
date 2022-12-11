@@ -45,7 +45,4 @@ describe('Auth System', () => {
             })
     });
 
-    it('test', () => {
-        console.log('test')
-    });
 });
