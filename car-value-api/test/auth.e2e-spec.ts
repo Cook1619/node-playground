@@ -29,4 +29,19 @@ describe('Auth System', () => {
                 expect(email).toEqual(email)
             })
     });
+
+    it('handles a signout request', () => {
+        const email = 'test12344@test.com'
+        // sets up a request to our http server
+        // chain on methods to a certain request
+        return request(app.getHttpServer())
+            .post('/auth/signin')
+            .send({ email, password: '123pass' })
+            .expect(201)
+            .then((res) => {
+                const { id, email } = res.body
+                expect(id).toBeDefined()
+                expect(email).toEqual(email)
+            })
+    });
 });
