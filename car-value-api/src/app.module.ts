@@ -1,4 +1,5 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MiddlewareConsumer, Module, ValidationPipe } from '@nestjs/common';
 import { APP_PIPE } from '@nestjs/core';
 import { AppController } from './app.controller';
@@ -10,13 +11,27 @@ import { Report } from './reports/reports.entity';
 const cookieSession = require('cookie-session');
 
 @Module({
-  imports: [UsersModule, ReportsModule, TypeOrmModule.forRoot({
-    type: 'sqlite',
-    database: 'db.sqlite',
-    entities: [User, Report],
-    // this makes it so we don't need to write migration scripts, DEV ONLY
-    synchronize: true
-  })],
+  imports: [
+    ConfigModule.forRoot({
+      // makes is assesible everywhere in app
+      isGlobal: true,
+      envFilePath: `.env.${process.env.NODE_ENV}`,
+    }),
+    UsersModule,
+    ReportsModule,
+    TypeOrmModule.forRootAsync({
+      // registers config service to DI object
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => {
+        return {
+          type: 'sqlite',
+          database: config.get<string>('DB_NAME'),
+          synchronize: true,
+          entities: [User, Report],
+        };
+      },
+    }),
+  ],
   controllers: [AppController],
   providers: [
     AppService,
@@ -24,16 +39,20 @@ const cookieSession = require('cookie-session');
     {
       provide: APP_PIPE,
       // Whitelist true strips off any extra fields on an incoming request
-      useValue: new ValidationPipe({ whitelist: true })
-    }
+      useValue: new ValidationPipe({ whitelist: true }),
+    },
   ],
 })
 export class AppModule {
   // this will run on every incoming request (middleware)
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(cookieSession({
-      keys: ['nestjs']
-      // make use of this middleware function on every request (global middleware)
-    })).forRoutes('*')
+    consumer
+      .apply(
+        cookieSession({
+          keys: ['nestjs'],
+          // make use of this middleware function on every request (global middleware)
+        }),
+      )
+      .forRoutes('*');
   }
 }
