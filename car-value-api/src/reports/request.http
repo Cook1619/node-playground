@@ -5,8 +5,8 @@ content-type: application/json
 {
  
   "price": 10000,
-  "make": "Honda",
-  "model": "Civic",
+  "make": "Toyota",
+  "model": "Corolla",
   "year": 2013,
   "long": 0,
   "lat": 0,
