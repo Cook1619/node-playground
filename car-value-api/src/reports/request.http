@@ -4,11 +4,19 @@ content-type: application/json
 
 {
  
-  "price": 10000,
-  "make": "Toyota",
-  "model": "Corolla",
+  "price": 5000,
+  "make": "Honda",
+  "model": "Civic",
   "year": 2013,
   "long": 0,
   "lat": 0,
-  "mileage": 165000
+  "mileage": 175000
+}
+
+### Will change approved status of a report
+PATCH http://localhost:3000/reports/2
+content-type: application/json
+
+{
+  "approved": true
 }
