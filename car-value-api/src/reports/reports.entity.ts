@@ -33,4 +33,7 @@ export class Report {
   // Second arguement is all about taking an instance of user, and how to get to a report
   @ManyToOne(() => User, (user) => user.reports)
   user: User;
+
+  @Column({ default: false })
+  approved: boolean;
 }
