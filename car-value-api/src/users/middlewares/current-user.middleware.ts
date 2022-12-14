@@ -6,6 +6,16 @@ import {
 } from '@nestjs/common';
 import { NextFunction, Response, Request } from 'express';
 import { UsersService } from '../users.service';
+import { User } from '../users.entity';
+
+// This goes into the Express namespace and overrides some typing to say there maybe a curentUser object of type User
+declare global {
+  namespace Express {
+    interface Request {
+      currentUser?: User;
+    }
+  }
+}
 
 @Injectable()
 export class CurrentUserMiddleware implements NestMiddleware {
@@ -17,7 +27,6 @@ export class CurrentUserMiddleware implements NestMiddleware {
     if (userId) {
       const user = await this.usersService.findOne(userId);
       // We can get access to the req object inside our customer decorator
-      // @ts-ignore
       req.currentUser = user;
     }
     // Continue on running the route handler
