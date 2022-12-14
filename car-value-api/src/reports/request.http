@@ -4,17 +4,17 @@ content-type: application/json
 
 {
  
-  "price": 5000,
-  "make": "Honda",
-  "model": "Civic",
-  "year": 2013,
+  "price": 50000,
+  "make": "Volkswagon",
+  "model": "Atlas",
+  "year": 2022,
   "long": 0,
   "lat": 0,
-  "mileage": 175000
+  "mileage": 0
 }
 
 ### Will change approved status of a report
-PATCH http://localhost:3000/reports/2
+PATCH http://localhost:3000/reports/3
 content-type: application/json
 
 {
