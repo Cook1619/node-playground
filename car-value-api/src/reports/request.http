@@ -4,10 +4,10 @@ content-type: application/json
 
 {
  
-  "price": 50000,
+  "price": 34000,
   "make": "Volkswagon",
   "model": "Atlas",
-  "year": 2022,
+  "year": 2021,
   "long": 0,
   "lat": 0,
   "mileage": 0
@@ -22,4 +22,4 @@ content-type: application/json
 }
 
 ### Get an Estimate for an existing vechicle
-GET http://localhost:3000/reports?make=Honda&model=civic&long=0&lat=0&mileage=175000&year=2013
+GET http://localhost:3000/reports?make=Volkswagon&model=Atlas&long=0&lat=0&mileage=0&year=2021
