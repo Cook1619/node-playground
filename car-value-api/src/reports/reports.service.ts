@@ -46,6 +46,7 @@ export class ReportsService {
         .andWhere('lat - :lat BETWEEN -5 AND 5', { lat })
         // + or - 3 years of current year being passed in
         .andWhere('year - :year BETWEEN -3 AND 3', { year })
+        .andWhere('approved IS TRUE')
         // absolute value of mileage being passed in
         .orderBy('ABS(mileage = :mileage)', 'DESC')
         .setParameters({ mileage })
